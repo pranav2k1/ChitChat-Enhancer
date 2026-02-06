@@ -1,36 +1,42 @@
 {
   "manifest_version": 3,
   "name": "ChitChat Enhancer",
-  "description": "Enhance your ChitChat experience",
-  "version": "1.0",
+  "version": "2.0.0",
+  "description": "Advanced automation for chitchat.gg with smart filtering and engagement detection",
   "permissions": [
+    "storage",
     "activeTab",
-    "storage"
+    "scripting",
+    "notifications"
   ],
   "host_permissions": [
-    "https://*.firebaseio.com/*",
-    "https://*.googleapis.com/*",
-    "https://autochitchat-blocked-database-default-rtdb.firebaseio.com/*"
+    "https://chitchat.gg/*",
+    "https://*.chitchat.gg/*"
   ],
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
       "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
       "48": "icons/icon48.png",
       "128": "icons/icon128.png"
     }
   },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
   "content_scripts": [
     {
-      "matches": ["https://app.chitchat.gg/chat/new/*"],
-      "js": [
-        "firebase/firebase-app-compat.js",
-        "firebase-config.js",
-        "content.js"
-      ]
+      "matches": ["https://chitchat.gg/*", "https://*.chitchat.gg/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
     }
   ],
-  "background": {
-    "service_worker": "background.js"
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
   }
 }
